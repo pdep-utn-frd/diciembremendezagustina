@@ -51,15 +51,13 @@ class Trabajador {
     method notificarse(ciudadflotante) { self.aporte(ciudadflotante)}
     method edad() = edad
     method jubilarse(ciudadflotante) {
-        not self.aporte(ciudadflotante)
-        ciudadflotante.quitarTrabajador(self)
+        not self.aporte(ciudadflotante) ciudadflotante.quitarTrabajador(self)
         }
     method aporte(ciudadflotante) { 
         ciudadflotante.aumentarcapacidad(1)
-        if (self.edad() > 65){
+       return  if (self.edad() > 65){
             self.jubilarse(ciudadflotante)
-        }
-    return}
+        } }
 }
 
 class Ingeniero inherits Trabajador {
