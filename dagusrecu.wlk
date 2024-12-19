@@ -1,6 +1,4 @@
-object oceano {
 
-}
 class Ciudadflotante{
     var capacidadmaxima 
     var property grado 
@@ -8,7 +6,7 @@ class Ciudadflotante{
     method niveldetecno()=grado
     method agregartrabajadores(trabajador){
         if(trabajadores.size()<capacidadmaxima )
-        trabajadores.add (trabajador)
+        trabajadores.add (trabajador) else
         throw new Exception
         (message="supera la cantidad maxima permitida") }
 
@@ -25,7 +23,8 @@ class Ciudadflotante{
     method ampliartecno(x) { grado = grado + x return grado}
     method aumentarcapacidad(x) {capacidadmaxima = (capacidadmaxima + x )return capacidadmaxima}
     method quitartrabajador(trabajador) {trabajadores.remove(trabajador)}
-
+     method elmasjoven() = trabajadores.min{t=>t.edad()}
+    method quitarmasjoven() {trabajadores.remove(self.elmasjoven())}
 }
 
 
@@ -37,7 +36,7 @@ class Trabajador {
     var habilidad=0
     method habilidad()=habilidad
     method experimentado() = edad > 50
-    method entrenamiento()
+    method entrenamiento(){}
     method esexperimentado()=edad.between(25,35)
     method espotente() = potencia >= 20
     method eshabil() = habilidad > 12
@@ -65,14 +64,17 @@ class Trabajador {
 
 class Ingeniero inherits Trabajador {
     var conocimiento = 5
-    override method habilidad() = super() + conocimiento * 3
+    override method habilidad() { return super() + conocimiento * 3}
     override method esexperimentado() = conocimiento > 8
     method aumentarconocimiento(x) { conocimiento = conocimiento + x return conocimiento}
-    override method entrenamiento() 
-    {if (self.esexperimentado()) 
-    {self.aumentarconocimiento(3)}
-     else {self.aumentarconocimiento(2)}}
-    method estadoflasheo()
+    override method entrenamiento() {
+        if (self.esexperimentado()) {
+            self.aumentarconocimiento(3)
+        }else{
+            self.aumentarconocimiento(2)
+        }
+    }
+    method estadoflasheo(){}
      override method aporte(ciudadflotante) { 
         ciudadflotante.ampliartecno(1)
         self.estadoflasheo()
@@ -93,12 +95,14 @@ class Guardia inherits Trabajador {
 
 }
 object consorcio {
-   const flotantes = []
-    method cantFlotantes() = flotantes.size()
-    method crear(flotante)  {
-    new Ciudadflotante(grado = 5,capacidad = flotantes.size(),trabajadores = [flotantes.forEach{f=>f.elmasjoven()}])
-    ciudadflotante.add(flotante)
-    method abandonarciudad()
-    }  
+    const ciudadflotante = []
+    method cantFlotantes() = ciudadflotante.size()
+    method crear()  {
+    const losmasjovenes = ciudadflotante.map{f=>f.elmasjoven()}
+    ciudadflotante.add(new Ciudadflotante
+    (grado = 5,capacidadmaxima = ciudadflotante.size(),trabajadores = losmasjovenes))
+    self.abandonar() }
+    method abandonar() { ciudadflotante.forEach{f=>f.quitarmasjoven()}
+    }
 
 }

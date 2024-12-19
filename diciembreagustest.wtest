@@ -1,0 +1,47 @@
+import dagusrecu.*
+
+describe 'tests' {
+    const luca = new Trabajador(edad = 50)
+    const mia = new Ingeniero(edad = 28, conocimiento = 6)
+    const emma = new Ingeniero(edad = 35, conocimiento = 9)
+    const noah = new Guardia(edad = 22, reserva = 120)
+    const olivia = new Guardia(edad = 41, reserva = 180)
+    const aqua1 = new Ciudadflotante(capacidadmaxima = 5,grado=6, trabajadores = [luca,mia,emma,noah,olivia])
+    test 'delegacion formada por emma y olivia' {
+        assert.equals
+        ([olivia,emma],aqua1.delegacionexperimentada())
+
+    }}
+    test 'cambiar potencia minima a 30' {
+        
+         const aqua1 = new Ciudadflotante(capacidadmaxima = 5,grado=6, trabajadores = [luca,mia,emma,noah,olivia])
+        aqua1.potenciaminima() == 30
+        assert.equals(2,aqua1.defensainicial())
+
+    }
+//si no le copiaba el aqua1 y los trabajadores, me decia "missing reference"
+//creo que no me estaria andando el describe
+    test 'no todos son habiles' {
+        assert.notThat(aqua1.todossonhabiles())
+    }
+
+    test 'valor de cap real' {
+        assert.equals(58,aqua1.capacidadreal())
+    }
+
+    test 'capacitar a mia' {
+        mia.entrenamiento()
+        assert.equals(78,aqua1.capacidadreal())
+    }
+    
+    test 'agregar nuevo trabajador' {
+        
+        const aqua1 = new Ciudadflotante(capacidadmaxima = 5,grado=6, trabajadores = [luca,mia,emma,noah,olivia])
+        const valentino = new Trabajador(edad = 2)
+        aqua1.agregartrabajadores(valentino)
+        assert.that(agua1.agregartrabajadores(message = "supera la cantidad maxima permitida"))
+    }
+   
+ 
+
+
